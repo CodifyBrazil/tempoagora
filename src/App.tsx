@@ -23,8 +23,6 @@ const App = () => {
       new Date().getMonth(),
       new Date().getDate() + (day?day:0),
     ).toLocaleDateString();
-
-    console.log(dayCurrent);
   }  
 
   const getInfoCity = async () => {
@@ -101,14 +99,15 @@ const App = () => {
           </Flex>
         </Flex>
 
-        <Flex m={'auto'}>
+        <Flex m={'auto'} mb='10px'>
           {daysLasted.map((item, index)=> (
             <Button 
             onClick={() => daysPlus(index)}
-            disabled
-            border={'2px solid #6549ff'} 
-            _hover={{ backgroundColor: "#6549ff" }} 
-            bg='#fff' 
+            // disabled
+            border={'2px solid #fff'} 
+            _hover={{ backgroundColor: "#fff", color: "#333",border:"2px solid #6549ff"}} 
+            bg='#6549ff' 
+            color={'#fff'}
             mr='10px' 
             key={index}>{item}
             </Button>
@@ -133,6 +132,7 @@ const App = () => {
             h={"100px"}
             borderRadius="8px"
             flexDirection={"column"}
+            border='4px solid #e50013'
           >
             <Text as="b" fontSize={"13px"}>
               Temp. Max.
@@ -149,6 +149,7 @@ const App = () => {
             h={"100px"}
             borderRadius="8px"
             flexDirection={"column"}
+            border='4px solid #6549ff'
           >
             <Text as="b" fontSize={"13px"}>
               Temp. Min.
