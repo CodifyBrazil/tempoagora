@@ -25,7 +25,6 @@ const App = () => {
 
   const getInfoCity = async () => {
     if (inputCity.length > 4) {
-
       const HourCurrent = new Date().getHours();
       const period = (HourCurrent <= 12?'manha':'tarde');
 
@@ -34,6 +33,7 @@ const App = () => {
       const infoTemperature = await API.getTemperatureCity(codeCity[0]);
       const daysTemperature = await infoTemperature[codeCity];
       daysTemperature != undefined ? setInfoCity(daysTemperature[dayCurrent][period]) : "";
+      setImage(daysTemperature[dayCurrent][period]['icone']);
       console.log(infoCity);
     } else {
       console.log("Algo errado...");
