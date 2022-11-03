@@ -1,3 +1,3 @@
 export const Capitalize = (text: string) => {
-    return text.toLocaleLowerCase;
+    return text.toLowerCase()
 }
