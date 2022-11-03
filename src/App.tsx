@@ -4,24 +4,28 @@ import { API } from "./service/API_INTERNAL";
 import { API_LOCATION } from "./service/API_LOCATION";
 import Lupa from "./assets/lupa.png";
 
-//   sm: '30em',
-//   md: '48em',
-//   lg: '62em',
-//   xl: '80em',
-//   '2xl': '96em',
-
-// const Example = ({ data }) => <img src={`data:image/jpeg;base64,${data}`} />
-
 const App = () => {
   const [infoCity, setInfoCity] = useState();
   const [image, setImage] = useState("");
   const [inputCity, setInputCity] = useState("londrina");
 
-  const dayCurrent = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate(),
-  ).toLocaleDateString();
+  const daysLasted = [];
+
+  for (let i = 0; i < 5; i++) {
+    daysLasted.push(new Date().getDate() + i);
+  }
+
+
+  let dayCurrent: any;
+  const daysPlus= (day?:number) => {
+      dayCurrent = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate() + (day?day:0),
+    ).toLocaleDateString();
+
+    console.log(dayCurrent);
+  }  
 
   const getInfoCity = async () => {
     if (inputCity.length > 4) {
@@ -33,7 +37,7 @@ const App = () => {
       const infoTemperature = await API.getTemperatureCity(codeCity[0]);
       const daysTemperature = await infoTemperature[codeCity];
       daysTemperature != undefined ? setInfoCity(daysTemperature[dayCurrent][period]) : "";
-      setImage(daysTemperature[dayCurrent][period]['icone']);
+      // setImage(daysTemperature[dayCurrent][period]['icone']);
       console.log(infoCity);
     } else {
       console.log("Algo errado...");
@@ -51,7 +55,7 @@ const App = () => {
         m="auto"
         flexDirection={"column"}
       >
-        {image && (
+        {/* {image!=undefined && (
           <Flex m="auto" justifyContent={"center"} w="100%" p={"8px"}>
             <Image
               src={image}
@@ -61,7 +65,7 @@ const App = () => {
               borderRadius="8px"
             />
           </Flex>
-        )}
+        )} */}
 
         <Flex
           flexDirection={"column"}
@@ -96,6 +100,23 @@ const App = () => {
             </Button>
           </Flex>
         </Flex>
+
+        <Flex m={'auto'}>
+          {daysLasted.map((item, index)=> (
+            <Button 
+            onClick={() => daysPlus(index)}
+            disabled
+            border={'2px solid #6549ff'} 
+            _hover={{ backgroundColor: "#6549ff" }} 
+            bg='#fff' 
+            mr='10px' 
+            key={index}>{item}
+            </Button>
+          )
+
+          )}
+        </Flex>
+
         {infoCity &&
         <Flex
           flexDirection={"row"}
@@ -104,6 +125,7 @@ const App = () => {
           fontFamily={"sans-serif"}
           p="8px"
         >
+          
           <Flex
             w={"40%"}
             p="5px"
