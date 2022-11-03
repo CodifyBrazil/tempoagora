@@ -12,9 +12,7 @@ const axiosIntance_EXTERNAL = axios.create({
 
 export const API = {
     getCodeCity: async (name: string) => {
-        console.log(name);
-        const newName = Capitalize(name);
-        const data = await axiosIntance_INTERNAL.get(`/citys?nome=${newName}`);
+        const data = await axiosIntance_INTERNAL.get(`/citys?nome=${name}`);
         return data;
     },
     getTemperatureCity: async (codeCity: any) => {
